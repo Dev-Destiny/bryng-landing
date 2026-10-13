@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 
 type FeatureStatus = boolean | "partial";
@@ -95,10 +96,16 @@ export default function Comparison() {
     <section id="comparison" className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col items-center text-center mb-14">
-          <div className="inline-flex items-center px-3.5 py-1.5 rounded-pill border border-border-default bg-bg-surface text-xs font-semibold text-text-secondary tracking-wide uppercase mb-6 shadow-xs">
-            04 / The Difference
-          </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex flex-col items-center text-center mb-14"
+        >
+          <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-4">
+            The Bryng Standard
+          </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary tracking-tight leading-tight mb-4">
             Why Bryng Is Different
           </h2>
@@ -106,10 +113,16 @@ export default function Comparison() {
             Informal channels leave students exposed to ghosting and incomplete work.
             Bryng standardizes protection and academic accountability.
           </p>
-        </div>
+        </motion.div>
 
         {/* Table Container */}
-        <div className="overflow-x-auto rounded-lg border border-border-subtle bg-bg-surface shadow-xs">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          className="overflow-x-auto rounded-lg border border-border-subtle bg-bg-surface shadow-xs"
+        >
           <table className="w-full min-w-[600px] border-collapse">
             <thead>
               <tr className="border-b border-border-subtle bg-bg-subtle/50">
@@ -155,7 +168,7 @@ export default function Comparison() {
               ))}
             </tbody>
           </table>
-        </div>
+        </motion.div>
 
         {/* Footnote */}
         <p className="text-center text-xs text-text-muted mt-5">

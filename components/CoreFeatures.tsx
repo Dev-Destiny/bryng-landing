@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   ShieldCheck,
   GraduationCap,
@@ -118,10 +119,16 @@ export default function CoreFeatures() {
     <section id="core-features" className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-12 lg:mb-14">
-          <div className="inline-flex items-center px-3.5 py-1.5 rounded-pill border border-border-default bg-bg-surface text-xs font-semibold text-text-secondary tracking-wide uppercase mb-6 shadow-xs">
-            02 / Core Features
-          </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex flex-col items-center text-center max-w-3xl mx-auto mb-12 lg:mb-14"
+        >
+          <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-4">
+            Core Platform Features
+          </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary tracking-tight leading-tight mb-4">
             Built for academic confidence
           </h2>
@@ -129,11 +136,11 @@ export default function CoreFeatures() {
             Bryng gives students and professionals everything they need to stay aligned,
             track progress, and succeed — all in one place.
           </p>
-        </div>
+        </motion.div>
 
         {/* Horizontal Tab Navigation Pill Bar (Grovia Style) */}
         <div className="flex justify-center mb-8 lg:mb-10">
-          <div className="inline-flex items-center bg-bg-subtle/80 p-1.5 rounded-pill border border-border-subtle max-w-full overflow-x-auto no-scrollbar gap-1">
+          <div className="relative inline-flex items-center bg-bg-subtle/80 p-1.5 rounded-pill border border-border-subtle max-w-full overflow-x-auto no-scrollbar gap-1">
             {tabs.map((tab) => {
               const Icon = tab.tabIcon;
               const isActive = tab.id === activeTabId;
@@ -141,12 +148,19 @@ export default function CoreFeatures() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTabId(tab.id)}
-                  className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-pill text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
+                  className={`relative flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-pill text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors duration-200 z-10 ${
                     isActive
-                      ? "bg-white text-text-primary shadow-xs border border-border-subtle"
+                      ? "text-text-primary"
                       : "text-text-secondary hover:text-text-primary"
                   }`}
                 >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeFeatureTab"
+                      className="absolute inset-0 bg-white rounded-pill shadow-xs border border-border-subtle -z-10"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    />
+                  )}
                   <Icon
                     size={16}
                     className={isActive ? "text-brand" : "text-text-muted"}
@@ -159,7 +173,15 @@ export default function CoreFeatures() {
         </div>
 
         {/* Feature Showcase Card (Grovia 2-Column Card with Left Mockup & Right Copy) */}
-        <div className="bg-bg-surface border border-border-subtle rounded-2xl lg:rounded-3xl p-6 sm:p-8 lg:p-12 shadow-xs">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          whileHover={{ y: -4, transition: { duration: 0.2 } }}
+          whileTap={{ scale: 0.99 }}
+          className="bg-bg-surface border border-border-subtle hover:border-border-strong hover:shadow-md rounded-2xl lg:rounded-3xl p-6 sm:p-8 lg:p-12 shadow-xs transition-colors"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             {/* Left Column: Rich Interactive Mockup (Matches dark-rimmed Grovia window preview) */}
             <div className="lg:col-span-7 w-full">
@@ -212,7 +234,9 @@ export default function CoreFeatures() {
                           <span className="text-xs text-[#854D0E] font-medium">
                             {escrowReleased ? "Funds Released ✓" : "Protected in Escrow"}
                           </span>
-                          <button
+                          <motion.button
+                            whileHover={{ scale: 1.01 }}
+                            whileTap={{ scale: 0.97 }}
                             onClick={() => setEscrowReleased(!escrowReleased)}
                             className={`px-3.5 py-1.5 rounded-pill text-xs font-bold transition-colors ${
                               escrowReleased
@@ -221,7 +245,7 @@ export default function CoreFeatures() {
                             }`}
                           >
                             {escrowReleased ? "Approved & Paid" : "Approve & Release Funds"}
-                          </button>
+                          </motion.button>
                         </div>
                       </div>
 
@@ -400,7 +424,9 @@ export default function CoreFeatures() {
                         </p>
 
                         <div className="flex items-center gap-2 pt-2 border-t border-[#FDE047]/60">
-                          <button
+                          <motion.button
+                            whileHover={{ scale: 1.01 }}
+                            whileTap={{ scale: 0.97 }}
                             onClick={() => setApprovedChapter(!approvedChapter)}
                             className={`px-3 py-1.5 rounded-pill text-xs font-bold transition-colors ${
                               approvedChapter
@@ -409,10 +435,14 @@ export default function CoreFeatures() {
                             }`}
                           >
                             {approvedChapter ? "Chapter Signed Off ✓" : "Approve Chapter"}
-                          </button>
-                          <button className="px-3 py-1.5 rounded-pill text-xs font-semibold bg-white text-text-primary border border-border-default hover:bg-bg-subtle">
+                          </motion.button>
+                          <motion.button
+                            whileHover={{ scale: 1.01 }}
+                            whileTap={{ scale: 0.97 }}
+                            className="px-3 py-1.5 rounded-pill text-xs font-semibold bg-white text-text-primary border border-border-default hover:bg-bg-subtle"
+                          >
                             Request Edits
-                          </button>
+                          </motion.button>
                         </div>
                       </div>
 
@@ -516,10 +546,10 @@ export default function CoreFeatures() {
 
             {/* Right Column: Feature Copy and Highlighting (Matches right side in Grovia screenshot) */}
             <div className="lg:col-span-5 flex flex-col justify-center">
-              {/* Highlight Pill (Matches yellow CLIENT PORTAL pill in screenshot) */}
-              <div className="inline-flex items-center self-start px-3 py-1 rounded-pill text-xs font-bold uppercase tracking-wider mb-5 bg-[#FEF9C3] text-[#854D0E] border border-[#FDE047]">
-                {activeTab.pillTag}
-              </div>
+              {/* Clean Kicker */}
+              <p className="text-xs font-bold text-brand uppercase tracking-wider mb-3">
+                {activeTab.tabLabel}
+              </p>
 
               {/* Bold Headline */}
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary tracking-tight leading-tight mb-4">
@@ -558,7 +588,7 @@ export default function CoreFeatures() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

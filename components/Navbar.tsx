@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
@@ -61,18 +62,22 @@ export default function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="/login"
-              className="text-sm text-text-secondary hover:text-text-primary transition-colors font-medium px-4 py-2"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/signup"
-              className="bg-brand text-white text-sm font-medium px-5 py-2.5 rounded-pill hover:bg-brand-hover transition-colors shadow-xs"
-            >
-              Sign Up
-            </Link>
+            <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="/login"
+                className="text-sm text-text-secondary hover:text-text-primary transition-colors font-medium px-4 py-2"
+              >
+                Log in
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="/signup"
+                className="inline-block bg-brand text-white text-sm font-medium px-5 py-2.5 rounded-pill hover:bg-brand-hover transition-colors shadow-xs"
+              >
+                Sign Up
+              </Link>
+            </motion.div>
           </div>
 
           {/* Mobile menu button */}

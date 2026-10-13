@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 
 const faqs = [
@@ -39,10 +40,16 @@ export default function FAQ() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-12 lg:gap-20 items-start">
           {/* Left Column */}
-          <div className="lg:sticky lg:top-28">
-            <div className="inline-flex items-center px-3.5 py-1.5 rounded-pill border border-border-default bg-bg-surface text-xs font-semibold text-text-secondary tracking-wide uppercase mb-6 shadow-xs">
-              05 / FAQ
-            </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="lg:sticky lg:top-28"
+          >
+            <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-4">
+              Frequently Asked Questions
+            </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight leading-tight mb-4">
               Got questions? We&#39;ve got answers.
             </h2>
@@ -50,16 +57,24 @@ export default function FAQ() {
               Everything you need to know about milestone escrow, quality checks,
               and academic support on Bryng.
             </p>
-            <a
+            <motion.a
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.97 }}
               href="mailto:hello@bryng.app"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline"
             >
               Need additional clarification? Email us →
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
 
           {/* Right Column - Accordion */}
-          <div className="space-y-3">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            className="space-y-3"
+          >
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
@@ -72,14 +87,16 @@ export default function FAQ() {
                   }`}
                 >
                   <button
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus:outline-hidden"
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
                   >
                     <span className="font-bold text-text-primary text-sm leading-snug flex-1">
                       {faq.question}
                     </span>
-                    <div
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       className={`flex-shrink-0 w-7 h-7 rounded-pill flex items-center justify-center transition-colors ${
                         isOpen
                           ? "bg-brand text-white"
@@ -87,21 +104,31 @@ export default function FAQ() {
                       }`}
                     >
                       {isOpen ? <Minus size={14} /> : <Plus size={14} />}
-                    </div>
+                    </motion.div>
                   </button>
 
-                  {isOpen && (
-                    <div className="px-6 pb-5 pt-1">
-                      <div className="h-px bg-border-subtle mb-4" />
-                      <p className="text-sm text-text-secondary leading-relaxed font-normal">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  )}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-5 pt-1">
+                          <div className="h-px bg-border-subtle mb-4" />
+                          <p className="text-sm text-text-secondary leading-relaxed font-normal">
+                            {faq.answer}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
