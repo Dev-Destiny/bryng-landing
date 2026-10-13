@@ -1,41 +1,48 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "Bryng — Academic Help Without the Uncertainty",
+  title: "Bryng — Academic Service Marketplace",
   description:
-    "Connect with verified academic professionals. Pay safely through escrow. Only release money when you're satisfied. Bryng is Nigeria's trusted academic service marketplace.",
+    "Connect with verified academic professionals. Pay safely through escrow. Only release funds when satisfied. Bryng is the structured marketplace for academic success.",
   keywords: [
-    "academic help Nigeria",
-    "student freelance platform",
-    "thesis writing Nigeria",
+    "academic help",
+    "verified academic writers",
     "academic escrow",
-    "verified writers Nigeria",
+    "thesis assistance",
+    "student marketplace",
   ],
   openGraph: {
-    title: "Bryng — Academic Help Without the Uncertainty",
+    title: "Bryng — Academic Service Marketplace",
     description:
-      "Connect with verified professionals. Pay safely through escrow. The academic marketplace built for Nigerian students.",
+      "Connect with verified professionals. Pay safely through escrow. Only release funds when satisfied.",
     type: "website",
     url: "https://bryng.app",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bryng — Academic Help Without the Uncertainty",
+    title: "Bryng — Academic Service Marketplace",
     description:
       "Connect with verified professionals. Pay safely through escrow.",
   },
+  icons: {
+    icon: [
+      { url: "/Bryng_Icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/Bryng_Icon.svg",
+    apple: "/Bryng_Icon.svg",
+  },
+};
+
+export const viewport: Viewport = {
   themeColor: "#6C5CE7",
 };
 
@@ -45,9 +52,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`${plusJakartaSans.variable} ${plusJakartaSans.className} scroll-smooth`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#FBFBF9]`}
+        className={`${plusJakartaSans.className} antialiased bg-bg-base text-text-primary`}
       >
         {children}
       </body>

@@ -13,25 +13,25 @@ interface ComparisonRow {
 
 const comparisonData: ComparisonRow[] = [
   {
-    feature: "Verified & Tested Professionals",
+    feature: "Tested & Credentialed Professionals",
     bryng: true,
     whatsapp: false,
     general: "partial",
   },
   {
-    feature: "Secure Escrow Payment",
+    feature: "Secure Milestone Escrow",
     bryng: true,
     whatsapp: false,
     general: false,
   },
   {
-    feature: "Milestone Chapter Updates",
+    feature: "Chapter-by-Chapter Updates",
     bryng: true,
     whatsapp: false,
     general: false,
   },
   {
-    feature: "AI Plagiarism & Integrity Check",
+    feature: "Verified Originality & Referencing",
     bryng: true,
     whatsapp: false,
     general: false,
@@ -43,19 +43,19 @@ const comparisonData: ComparisonRow[] = [
     general: "partial",
   },
   {
-    feature: "Built-in Dispute Resolution",
+    feature: "Impartial Dispute Mediation",
     bryng: true,
     whatsapp: false,
     general: "partial",
   },
   {
-    feature: "Student-Focused Platform",
+    feature: "Purpose-Built for Academic Research",
     bryng: true,
     whatsapp: false,
     general: false,
   },
   {
-    feature: "Money-Back Guarantee",
+    feature: "Escrow Refund Safeguard",
     bryng: true,
     whatsapp: false,
     general: false,
@@ -66,8 +66,8 @@ function StatusCell({ value }: { value: FeatureStatus }) {
   if (value === true) {
     return (
       <div className="flex justify-center">
-        <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
-          <Check size={13} className="text-green-600 font-bold" strokeWidth={3} />
+        <div className="w-6 h-6 rounded-pill bg-success-subtle text-success flex items-center justify-center">
+          <Check size={14} strokeWidth={2.5} />
         </div>
       </div>
     );
@@ -75,7 +75,7 @@ function StatusCell({ value }: { value: FeatureStatus }) {
   if (value === "partial") {
     return (
       <div className="flex justify-center">
-        <span className="text-[11px] font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">
+        <span className="text-[11px] font-semibold text-text-secondary bg-bg-subtle px-2 py-0.5 rounded-pill border border-border-subtle">
           Varies
         </span>
       </div>
@@ -83,8 +83,8 @@ function StatusCell({ value }: { value: FeatureStatus }) {
   }
   return (
     <div className="flex justify-center">
-      <div className="w-6 h-6 rounded-full bg-red-50 flex items-center justify-center">
-        <X size={13} className="text-red-400" strokeWidth={3} />
+      <div className="w-6 h-6 rounded-pill bg-bg-subtle text-text-muted flex items-center justify-center">
+        <X size={14} strokeWidth={2.5} />
       </div>
     </div>
   );
@@ -92,68 +92,57 @@ function StatusCell({ value }: { value: FeatureStatus }) {
 
 export default function Comparison() {
   return (
-    <section id="comparison" className="py-20 lg:py-28 bg-[#FBFBF9]">
+    <section id="comparison" className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#E5E5E0] text-xs font-medium text-gray-500 tracking-wider uppercase mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
+          <div className="inline-flex items-center px-3.5 py-1.5 rounded-pill border border-border-default bg-bg-surface text-xs font-semibold text-text-secondary tracking-wide uppercase mb-6 shadow-xs">
             04 / The Difference
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#12131A] tracking-tight leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary tracking-tight leading-tight mb-4">
             Why Bryng Is Different
           </h2>
-          <p className="text-gray-500 max-w-xl leading-relaxed">
-            Other methods leave you guessing and hoping for the best, but Bryng
-            is built entirely for academic success.
+          <p className="text-text-secondary max-w-xl leading-relaxed text-base">
+            Informal channels leave students exposed to ghosting and incomplete work.
+            Bryng standardizes protection and academic accountability.
           </p>
         </div>
 
         {/* Table Container */}
-        <div className="overflow-x-auto rounded-2xl border border-[#EAEAEA] shadow-sm">
-          <table className="w-full min-w-[560px]">
+        <div className="overflow-x-auto rounded-lg border border-border-subtle bg-bg-surface shadow-xs">
+          <table className="w-full min-w-[600px] border-collapse">
             <thead>
-              <tr className="border-b border-[#EAEAEA]">
-                <th className="text-left px-6 py-4 text-sm font-medium text-gray-400 w-[40%]">
-                  Feature
+              <tr className="border-b border-border-subtle bg-bg-subtle/50">
+                <th className="text-left px-6 py-4 text-xs font-semibold text-text-secondary uppercase tracking-wider w-[40%]">
+                  Standard Feature
                 </th>
-                {/* Bryng Column — highlighted */}
-                <th className="px-6 py-4 w-[20%]">
-                  <div className="bg-[#F3F0FF] rounded-xl px-3 py-2 text-center">
-                    <span className="text-sm font-bold text-[#6C5CE7]">
-                      Bryng ✦
-                    </span>
-                  </div>
+                <th className="px-6 py-4 w-[20%] text-center bg-brand-subtle/50 border-x border-brand-border">
+                  <span className="text-sm font-bold text-brand">
+                    Bryng
+                  </span>
                 </th>
                 <th className="px-6 py-4 w-[20%] text-center">
-                  <div className="text-center">
-                    <span className="text-sm font-medium text-gray-400">
-                      WhatsApp & Telegram
-                    </span>
-                  </div>
+                  <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+                    WhatsApp & Telegram
+                  </span>
                 </th>
                 <th className="px-6 py-4 w-[20%] text-center">
-                  <div className="text-center">
-                    <span className="text-sm font-medium text-gray-400">
-                      Fiverr / Upwork
-                    </span>
-                  </div>
+                  <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+                    General Freelance Apps
+                  </span>
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white">
+            <tbody>
               {comparisonData.map((row, index) => (
                 <tr
                   key={index}
-                  className={`border-b border-[#F5F5F5] hover:bg-[#FAFAFA] transition-colors ${
-                    index === comparisonData.length - 1 ? "border-b-0" : ""
-                  }`}
+                  className="border-b border-border-subtle hover:bg-bg-subtle/40 transition-colors last:border-b-0"
                 >
-                  <td className="px-6 py-4 text-sm text-[#12131A] font-medium">
+                  <td className="px-6 py-4 text-sm text-text-primary font-medium">
                     {row.feature}
                   </td>
-                  {/* Bryng cell with purple tint */}
-                  <td className="px-6 py-4 bg-[#F3F0FF]/40">
+                  <td className="px-6 py-4 bg-brand-subtle/30 border-x border-brand-border">
                     <StatusCell value={row.bryng} />
                   </td>
                   <td className="px-6 py-4">
@@ -168,9 +157,9 @@ export default function Comparison() {
           </table>
         </div>
 
-        {/* Caption */}
-        <p className="text-center text-xs text-gray-400 mt-5">
-          * "Varies" means the feature may exist in some cases but is not guaranteed or standardized.
+        {/* Footnote */}
+        <p className="text-center text-xs text-text-muted mt-5">
+          * &quot;Varies&quot; indicates the feature is unstandardized or depends on informal arrangements.
         </p>
       </div>
     </section>

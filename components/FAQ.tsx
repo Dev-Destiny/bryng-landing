@@ -7,27 +7,27 @@ const faqs = [
   {
     question: "Is my deposit safe if something goes wrong?",
     answer:
-      "Absolutely. Bryng uses a third-party escrow system which means your funds are held in a neutral, secure account and are NEVER sent to the writer until you review and approve the completed work. If you're unsatisfied and a dispute is raised, you could receive a full or partial refund depending on the outcome of the review.",
+      "Yes. Bryng operates an institutional escrow safeguard. When you fund a project, your money is held securely in neutral platform escrow. Funds are never released to the professional until you formally inspect and approve the submitted deliverable. If a milestone does not meet agreed requirements and mediation concludes in your favor, funds are returned directly to your wallet.",
   },
   {
     question: "Are there any hidden fees or extra charges?",
     answer:
-      "No hidden fees — ever. What you see on the project quote is what you pay. Bryng charges a small platform fee that is displayed transparently before you confirm your payment. There are no surprise service charges or commissions added afterwards.",
+      "No. Every project quotation is fully transparent. Any platform service processing fee is broken down line-by-line before you confirm payment. There are no unexpected commissions deducted from completed milestones.",
   },
   {
     question: "Do I need to verify my identity to sign up?",
     answer:
-      "Students only need a valid email address to create an account and browse the platform. A phone number verification is required when you make your first escrow deposit for security purposes. Professionals undergo a more thorough application review process including academic credential checks.",
+      "Students require only a valid academic or personal email to create an account and submit project briefs. Professionals undergo a mandatory qualification vetting process, including academic transcript and identity verification, before bidding on student briefs.",
   },
   {
     question: "What happens if I'm not satisfied with the delivered work?",
     answer:
-      "If you are not happy with the delivered work, you can request revisions directly through the platform. If after revisions the quality still doesn't meet the agreed requirements, you can formally raise a dispute. Our review team will examine the original brief, the delivered work, and all communications to reach a fair resolution.",
+      "You can submit revision requests directly via the project workspace. If the final delivery still fails to satisfy the agreed brief, you can escalate the milestone to Bryng Dispute Resolution. An impartial academic evaluator will assess the deliverable against the project specification and issue a binding resolution.",
   },
   {
     question: "How and when can I withdraw my wallet balance?",
     answer:
-      "Professionals can withdraw their earned wallet balance at any time via bank transfer. Withdrawals are typically processed within 1–2 business days. Students who receive a refund will see the funds returned to their Bryng wallet, which can also be withdrawn or reused for future projects.",
+      "Professionals can initiate direct bank withdrawals as soon as a milestone is approved. Withdrawals are processed through standard domestic payment clearing within 1–2 business days. Any student refunds credited to platform wallets can be withdrawn or applied toward subsequent projects.",
   },
 ];
 
@@ -35,27 +35,26 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-20 lg:py-28 bg-[#FBFBF9]">
+    <section id="faq" className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-12 lg:gap-20 items-start">
           {/* Left Column */}
           <div className="lg:sticky lg:top-28">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#E5E5E0] text-xs font-medium text-gray-500 tracking-wider uppercase mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-              FAQs
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-pill border border-border-default bg-bg-surface text-xs font-semibold text-text-secondary tracking-wide uppercase mb-6 shadow-xs">
+              05 / FAQ
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#12131A] tracking-tight leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight leading-tight mb-4">
               Got questions? We&#39;ve got answers.
             </h2>
-            <p className="text-gray-500 leading-relaxed text-base mb-8">
-              Everything you need to know about getting started, staying safe,
-              and succeeding with Bryng.
+            <p className="text-text-secondary leading-relaxed text-base mb-8">
+              Everything you need to know about milestone escrow, quality checks,
+              and academic support on Bryng.
             </p>
             <a
               href="mailto:hello@bryng.app"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#6C5CE7] hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline"
             >
-              Still have questions? Email us →
+              Need additional clarification? Email us →
             </a>
           </div>
 
@@ -66,10 +65,10 @@ export default function FAQ() {
               return (
                 <div
                   key={index}
-                  className={`bg-white border rounded-2xl overflow-hidden transition-all duration-200 ${
+                  className={`bg-bg-surface border rounded-lg transition-colors overflow-hidden ${
                     isOpen
-                      ? "border-[#D0CCFF] shadow-sm"
-                      : "border-[#EAEAEA] hover:border-[#D0CCFF]"
+                      ? "border-brand-border shadow-xs"
+                      : "border-border-subtle hover:border-border-strong"
                   }`}
                 >
                   <button
@@ -77,24 +76,24 @@ export default function FAQ() {
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
                   >
-                    <span className="font-semibold text-[#12131A] text-sm leading-snug flex-1">
+                    <span className="font-bold text-text-primary text-sm leading-snug flex-1">
                       {faq.question}
                     </span>
                     <div
-                      className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
+                      className={`flex-shrink-0 w-7 h-7 rounded-pill flex items-center justify-center transition-colors ${
                         isOpen
-                          ? "bg-[#6C5CE7] text-white"
-                          : "bg-[#F5F5F5] text-gray-400"
+                          ? "bg-brand text-white"
+                          : "bg-bg-subtle text-text-secondary"
                       }`}
                     >
-                      {isOpen ? <Minus size={13} /> : <Plus size={13} />}
+                      {isOpen ? <Minus size={14} /> : <Plus size={14} />}
                     </div>
                   </button>
 
                   {isOpen && (
-                    <div className="px-6 pb-5">
-                      <div className="h-px bg-[#F0EFFE] mb-4" />
-                      <p className="text-sm text-gray-500 leading-relaxed">
+                    <div className="px-6 pb-5 pt-1">
+                      <div className="h-px bg-border-subtle mb-4" />
+                      <p className="text-sm text-text-secondary leading-relaxed font-normal">
                         {faq.answer}
                       </p>
                     </div>

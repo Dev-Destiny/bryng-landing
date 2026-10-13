@@ -1,26 +1,110 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-plus-jakarta-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Theme color mapping */
+  --color-bg-base: var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-muted: var(--bg-muted);
+
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-subtle: var(--brand-subtle);
+  --color-brand-border: var(--brand-border);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+
+  --color-dark-bg: var(--dark-bg);
+  --color-dark-surface: var(--dark-surface);
+  --color-dark-border: var(--dark-border);
+
+  --color-success: var(--success);
+  --color-success-subtle: var(--success-subtle);
+
+  /* Radius mapping */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-pill: var(--radius-pill);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* =========================================
+     GLOBAL DESIGN SYSTEM VARIABLES
+     Change any of these to restyle the site!
+     ========================================= */
+
+  /* Backgrounds */
+  --bg-base: #FBFBF9;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F5F5F1;
+  --bg-muted: #EFEFE9;
+
+  /* Brand Accents */
+  --brand: #6C5CE7;
+  --brand-hover: #5A4BD1;
+  --brand-subtle: #F3F0FF;
+  --brand-border: #E2DDFF;
+
+  /* Typography Colors */
+  --text-primary: #12131A;
+  --text-secondary: #575762;
+  --text-muted: #8A8A96;
+
+  /* Borders */
+  --border-subtle: #ECECE6;
+  --border-default: #DFDFD8;
+  --border-strong: #C8C8BE;
+
+  /* Dark Elements (CTA card, badges) */
+  --dark-bg: #12131A;
+  --dark-surface: #1B1C24;
+  --dark-border: rgba(255, 255, 255, 0.1);
+
+  /* Functional / Status */
+  --success: #16A34A;
+  --success-subtle: #DCFCE7;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-plus-jakarta-sans), "Plus Jakarta Sans", var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand);
 }

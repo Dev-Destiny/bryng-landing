@@ -1,8 +1,7 @@
-"use client";
-
 import Link from "next/link";
+import Image from "next/image";
 
-function TwitterIcon({ size = 18 }: { size?: number }) {
+function TwitterIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -16,7 +15,7 @@ function TwitterIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-function InstagramIcon({ size = 18 }: { size?: number }) {
+function InstagramIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -30,7 +29,7 @@ function InstagramIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-function LinkedInIcon({ size = 18 }: { size?: number }) {
+function LinkedInIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -45,28 +44,31 @@ function LinkedInIcon({ size = 18 }: { size?: number }) {
 }
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2026;
 
   return (
-    <footer className="bg-[#FBFBF9] border-t border-[#EAEAEA]">
+    <footer className="bg-bg-base border-t border-border-subtle">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12">
           {/* Brand Column */}
           <div>
-            <Link href="/" className="inline-flex items-center gap-1.5 mb-5">
-              <span className="text-[#12131A] font-bold text-xl tracking-tight">
-                Bryng
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#6C5CE7]" />
+            <Link href="/" className="inline-flex items-center mb-5">
+              <Image
+                src="/Bryng_logo.svg"
+                alt="Bryng"
+                width={110}
+                height={41}
+                className="h-8 sm:h-9 w-auto"
+              />
             </Link>
-            <p className="text-sm text-gray-400 leading-relaxed max-w-xs mb-6">
-              The trusted academic marketplace connecting Nigerian students with
-              verified professionals — safely, transparently, and reliably.
+            <p className="text-sm text-text-secondary leading-relaxed max-w-xs mb-6">
+              The structured academic service marketplace connecting students with
+              verified professionals through neutral milestone escrow.
             </p>
             <a
               href="mailto:hello@bryng.app"
-              className="text-[#12131A] font-medium text-sm hover:text-[#6C5CE7] transition-colors"
+              className="text-text-primary font-thin text-4xl hover:text-brand transition-colors"
             >
               hello@bryng.app
             </a>
@@ -74,16 +76,16 @@ export default function Footer() {
 
           {/* Product Links */}
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
-              Product
+            <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
+              Platform
             </p>
             <ul className="space-y-3">
-              {["How it Works", "For Students", "For Professionals", "Pricing", "Reviews"].map(
+              {["How it Works", "For Students", "For Professionals", "Pricing", "Escrow Protection"].map(
                 (item) => (
                   <li key={item}>
                     <Link
                       href="#"
-                      className="text-sm text-gray-500 hover:text-[#12131A] transition-colors"
+                      className="text-sm text-text-secondary hover:text-text-primary transition-colors font-medium"
                     >
                       {item}
                     </Link>
@@ -95,16 +97,16 @@ export default function Footer() {
 
           {/* Company Links */}
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
+            <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
               Company
             </p>
             <ul className="space-y-3">
-              {["About Us", "Blog", "Careers", "Contact", "Trust & Safety"].map(
+              {["About Bryng", "Academic Integrity", "Careers", "Contact Support", "Trust & Safety"].map(
                 (item) => (
                   <li key={item}>
                     <Link
                       href="#"
-                      className="text-sm text-gray-500 hover:text-[#12131A] transition-colors"
+                      className="text-sm text-text-secondary hover:text-text-primary transition-colors font-medium"
                     >
                       {item}
                     </Link>
@@ -116,16 +118,16 @@ export default function Footer() {
 
           {/* Support Links */}
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
-              Support
+            <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
+              Governance
             </p>
             <ul className="space-y-3">
-              {["Help Center", "Dispute Resolution", "Escrow Guide", "Status Page"].map(
+              {["Dispute Mediation", "Escrow Rules", "Citation Guidelines", "Security Status"].map(
                 (item) => (
                   <li key={item}>
                     <Link
                       href="#"
-                      className="text-sm text-gray-500 hover:text-[#12131A] transition-colors"
+                      className="text-sm text-text-secondary hover:text-text-primary transition-colors font-medium"
                     >
                       {item}
                     </Link>
@@ -138,12 +140,11 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-[#EAEAEA]">
+      <div className="border-t border-border-subtle bg-bg-surface/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Left: Social Icons + Email */}
-            <div className="flex items-center gap-4">
-              {/* Social icon buttons */}
+            <div className="flex items-center gap-3">
               {[
                 { Icon: TwitterIcon, label: "Twitter", href: "#" },
                 { Icon: InstagramIcon, label: "Instagram", href: "#" },
@@ -153,33 +154,33 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-full bg-[#12131A] text-white flex items-center justify-center hover:bg-[#6C5CE7] transition-colors"
+                  className="w-8 h-8 rounded-pill bg-bg-subtle text-text-secondary hover:text-text-primary hover:bg-border-subtle flex items-center justify-center transition-colors border border-border-subtle"
                 >
-                  <Icon size={15} />
+                  <Icon size={14} />
                 </a>
               ))}
-              <span className="hidden sm:block text-[#12131A] font-medium text-sm ml-2">
+              <span className="hidden sm:block text-text-secondary font-medium text-xs ml-2">
                 hello@bryng.app
               </span>
             </div>
 
             {/* Right: Legal Links */}
             <div className="flex items-center gap-5">
-              <p className="text-xs text-gray-400">
-                © {currentYear} Bryng. All rights reserved.
+              <p className="text-xs text-text-muted">
+                © {currentYear} Bryng Inc. All rights reserved.
               </p>
               <div className="flex items-center gap-4">
                 <Link
                   href="/terms"
-                  className="text-xs text-gray-400 hover:text-[#12131A] transition-colors"
+                  className="text-xs text-text-muted hover:text-text-primary transition-colors"
                 >
-                  Terms
+                  Terms of Service
                 </Link>
                 <Link
                   href="/privacy"
-                  className="text-xs text-gray-400 hover:text-[#12131A] transition-colors"
+                  className="text-xs text-text-muted hover:text-text-primary transition-colors"
                 >
-                  Privacy
+                  Privacy Policy
                 </Link>
               </div>
             </div>
