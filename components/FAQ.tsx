@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
+import { Card, SectionHeader, Button } from "./ui";
 
 const faqs = [
   {
@@ -40,32 +41,23 @@ export default function FAQ() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-12 lg:gap-20 items-start">
           {/* Left Column */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="lg:sticky lg:top-28"
-          >
-            <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-4">
-              Frequently Asked Questions
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight leading-tight mb-4">
-              Got questions? We&#39;ve got answers.
-            </h2>
-            <p className="text-text-secondary leading-relaxed text-base mb-8">
-              Everything you need to know about milestone escrow, quality checks,
-              and academic support on Bryng.
-            </p>
-            <motion.a
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.97 }}
+          <div className="lg:sticky lg:top-28">
+            <SectionHeader
+              align="left"
+              kicker="Frequently Asked Questions"
+              title="Got questions? We've got answers."
+              subtitle="Everything you need to know about milestone escrow, quality checks, and academic support on Bryng."
+              className="mb-8"
+            />
+            <Button
               href="mailto:hello@bryng.app"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline"
+              variant="ghost"
+              size="sm"
+              className="!px-0 text-brand hover:underline font-semibold"
             >
               Need additional clarification? Email us →
-            </motion.a>
-          </motion.div>
+            </Button>
+          </div>
 
           {/* Right Column - Accordion */}
           <motion.div
@@ -78,16 +70,17 @@ export default function FAQ() {
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
-                <div
+                <Card
                   key={index}
-                  className={`bg-bg-surface border rounded-lg transition-colors overflow-hidden ${
+                  variant="default"
+                  className={`transition-colors overflow-hidden ${
                     isOpen
                       ? "border-brand-border shadow-xs"
                       : "border-border-subtle hover:border-border-strong"
                   }`}
                 >
                   <button
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus:outline-hidden"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus:outline-hidden cursor-pointer"
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
                   >
@@ -125,7 +118,7 @@ export default function FAQ() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </Card>
               );
             })}
           </motion.div>

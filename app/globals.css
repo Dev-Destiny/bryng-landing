@@ -30,6 +30,7 @@
   --color-success-subtle: var(--success-subtle);
 
   /* Radius mapping */
+  --radius-radius: var(--radius-radius);
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
@@ -44,24 +45,26 @@
      ========================================= */
 
   /* Backgrounds */
-  --bg-base: #FBFBF9;
+  --bg-base: #FAF9F6;
   --bg-surface: #FFFFFF;
   --bg-subtle: #F5F5F1;
-  --bg-muted: #EFEFE9;
+  --bg-muted: #EEEEEE;
 
   /* Brand Accents */
-  --brand: #6C5CE7;
+  --brand: #6E44FF; 
   --brand-hover: #5A4BD1;
   --brand-subtle: #F3F0FF;
   --brand-border: #E2DDFF;
 
-  /* Typography Colors */
-  --text-primary: #12131A;
+  /* Typography Colors */ 
+  --text-primary: #000000; /* 12131A */
   --text-secondary: #575762;
-  --text-muted: #8A8A96;
+  --text-muted: #9898AB;
+
+  /* Typography Sizes*/
 
   /* Borders */
-  --border-subtle: #ECECE6;
+  --border-subtle: #E7E2DA;
   --border-default: #DFDFD8;
   --border-strong: #C8C8BE;
 
@@ -75,6 +78,7 @@
   --success-subtle: #DCFCE7;
 
   /* Border Radius */
+  --radius-radius: 20px;
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;

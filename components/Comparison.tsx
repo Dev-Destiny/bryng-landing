@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
+import { Badge, SectionHeader } from "./ui";
 
 type FeatureStatus = boolean | "partial";
 
@@ -76,9 +77,9 @@ function StatusCell({ value }: { value: FeatureStatus }) {
   if (value === "partial") {
     return (
       <div className="flex justify-center">
-        <span className="text-[11px] font-semibold text-text-secondary bg-bg-subtle px-2 py-0.5 rounded-pill border border-border-subtle">
+        <Badge variant="neutral">
           Varies
-        </span>
+        </Badge>
       </div>
     );
   }
@@ -96,24 +97,12 @@ export default function Comparison() {
     <section id="comparison" className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex flex-col items-center text-center mb-14"
-        >
-          <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-4">
-            The Bryng Standard
-          </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary tracking-tight leading-tight mb-4">
-            Why Bryng Is Different
-          </h2>
-          <p className="text-text-secondary max-w-xl leading-relaxed text-base">
-            Informal channels leave students exposed to ghosting and incomplete work.
-            Bryng standardizes protection and academic accountability.
-          </p>
-        </motion.div>
+        <SectionHeader
+          kicker="The Bryng Standard"
+          title="Why Bryng Is Different"
+          subtitle="Informal channels leave students exposed to ghosting and incomplete work. Bryng standardizes protection and academic accountability."
+          className="mb-14"
+        />
 
         {/* Table Container */}
         <motion.div
