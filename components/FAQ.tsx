@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import { Card, SectionHeader, Button } from "./ui";
 
@@ -9,32 +9,33 @@ const faqs = [
   {
     question: "Is my deposit safe if something goes wrong?",
     answer:
-      "Yes. Bryng operates an institutional escrow safeguard. When you fund a project, your money is held securely in neutral platform escrow. Funds are never released to the professional until you formally inspect and approve the submitted deliverable. If a milestone does not meet agreed requirements and mediation concludes in your favor, funds are returned directly to your wallet.",
+      "When you fund a project, the payment stays in escrow until you approve the milestone. If a delivery doesn’t match the brief, request changes or ask Bryng’s dispute team to review it. If the review is in your favor, the refund goes to your wallet.",
   },
   {
-    question: "Are there any hidden fees or extra charges?",
+    question: "Will I know the fees before I pay?",
     answer:
-      "No. Every project quotation is fully transparent. Any platform service processing fee is broken down line-by-line before you confirm payment. There are no unexpected commissions deducted from completed milestones.",
+      "Yes. Your quote shows the project price and any platform or processing fee before you confirm payment. There are no surprise commissions deducted from completed milestones.",
   },
   {
-    question: "Do I need to verify my identity to sign up?",
+    question: "Who needs to verify their identity?",
     answer:
-      "Students require only a valid academic or personal email to create an account and submit project briefs. Professionals undergo a mandatory qualification vetting process, including academic transcript and identity verification, before bidding on student briefs.",
+      "Students can sign up with an academic or personal email. Experts complete identity and qualification checks before they can respond to briefs.",
   },
   {
-    question: "What happens if I'm not satisfied with the delivered work?",
+    question: "What if the work doesn’t match our plan?",
     answer:
-      "You can submit revision requests directly via the project workspace. If the final delivery still fails to satisfy the agreed brief, you can escalate the milestone to Bryng Dispute Resolution. An impartial academic evaluator will assess the deliverable against the project specification and issue a binding resolution.",
+      "Start by requesting a revision in the project workspace. If it’s still not right, escalate to Bryng’s dispute process. An impartial academic evaluator reviews the delivery against the original brief and makes a binding decision.",
   },
   {
-    question: "How and when can I withdraw my wallet balance?",
+    question: "When can experts withdraw their earnings?",
     answer:
-      "Professionals can initiate direct bank withdrawals as soon as a milestone is approved. Withdrawals are processed through standard domestic payment clearing within 1–2 business days. Any student refunds credited to platform wallets can be withdrawn or applied toward subsequent projects.",
+      "Experts can request a bank withdrawal after a milestone is approved. Domestic withdrawals usually take 1–2 business days. Students can withdraw refunds to a bank or use them toward another project.",
   },
 ];
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section id="faq" className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle">
@@ -44,27 +45,22 @@ export default function FAQ() {
           <div className="lg:sticky lg:top-28">
             <SectionHeader
               align="left"
-              kicker="Frequently Asked Questions"
-              title="Got questions? We've got answers."
-              subtitle="Everything you need to know about milestone escrow, quality checks, and academic support on Bryng."
+              title="A few things people ask."
+              subtitle="Payments, revisions, sign-up, and the practical details."
               className="mb-8"
             />
             <Button
               href="mailto:hello@bryng.app"
               variant="ghost"
               size="sm"
-              className="!px-0 text-brand hover:underline font-semibold"
+              className="px-0! text-brand hover:underline font-semibold"
             >
-              Need additional clarification? Email us →
+              Still wondering? Talk to us →
             </Button>
           </div>
 
           {/* Right Column - Accordion */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          <div
             className="space-y-3"
           >
             {faqs.map((faq, index) => {
@@ -73,14 +69,15 @@ export default function FAQ() {
                 <Card
                   key={index}
                   variant="default"
-                  className={`transition-colors overflow-hidden ${
+                  className={`transition-colors overflow-hidden rounded-wrapper ${
                     isOpen
                       ? "border-brand-border shadow-xs"
                       : "border-border-subtle hover:border-border-strong"
                   }`}
                 >
                   <button
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus:outline-hidden cursor-pointer"
+                    type="button"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand cursor-pointer"
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
                   >
@@ -106,7 +103,7 @@ export default function FAQ() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
                         <div className="px-6 pb-5 pt-1">
@@ -121,7 +118,7 @@ export default function FAQ() {
                 </Card>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

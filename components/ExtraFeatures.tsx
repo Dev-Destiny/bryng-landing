@@ -1,30 +1,26 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { MessageSquare, ShieldCheck, Scale, Check } from "lucide-react";
-import { Card, CardTitle, CardDescription, CardFooter, SectionHeader } from "./ui";
+import { MessageSquare, ShieldCheck, Scale } from "lucide-react";
+import { Card, CardTitle, CardDescription, SectionHeader } from "./ui";
 
 const extraFeatures = [
   {
     icon: MessageSquare,
-    title: "Safe In-App Chat",
+    title: "Keep the conversation together.",
     description:
-      "Communicate directly through our built-in secure messaging workspace. Keep all project briefs, revisions, and files in one auditable place.",
-    benefit: "Encrypted project records",
+      "Keep your brief, feedback, and files in one place, so everyone can refer to the same details.",
   },
   {
     icon: ShieldCheck,
-    title: "Transparent Scholar Profiles",
+    title: "Know who you’re working with.",
     description:
-      "Every professional provides verifiable academic backgrounds — including degrees, subject specializations, completion rates, and verified reviews.",
-    benefit: "Academic credential review",
+      "Check an expert’s qualifications, subject areas, experience, and student reviews before choosing.",
   },
   {
     icon: Scale,
-    title: "Fair Dispute Resolution",
+    title: "A way forward when plans change.",
     description:
-      "If expectations diverge, our structured mediation process steps in. Impartial academic evaluators review deliverables against the initial brief to issue fair rulings.",
-    benefit: "Binding neutral arbitration",
+      "If a delivery misses the agreed brief, ask Bryng to review the work and help find a fair resolution.",
   },
 ];
 
@@ -34,29 +30,21 @@ export default function ExtraFeatures() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <SectionHeader
-          kicker="Academic Safeguards"
-          title="More tools to ensure your academic success."
-          subtitle="Built-in protections to keep every project accountable, transparent, and completely conflict-free."
+          title="And if plans change?"
+          subtitle="Keep the people, project details, and next steps connected along the way."
           className="mb-14"
         />
 
         {/* 3-column Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {extraFeatures.map((feature, index) => {
+          {extraFeatures.map((feature) => {
             const Icon = feature.icon;
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-                className="h-full flex"
-              >
+              <div key={feature.title} className="flex h-full">
                 <Card
                   variant="default"
                   interactive
-                  className="p-7 flex flex-col justify-between w-full shadow-xs"
+                  className="p-7 flex flex-col justify-between w-full shadow-xs rounded-wrapper"
                 >
                   <div>
                     <div className="w-12 h-12 rounded-xl bg-brand-subtle text-brand flex items-center justify-center mb-6">
@@ -72,12 +60,8 @@ export default function ExtraFeatures() {
                     </CardDescription>
                   </div>
 
-                  <CardFooter className="text-xs font-semibold text-text-muted gap-2">
-                    <Check size={14} className="text-brand shrink-0" strokeWidth={2.5} />
-                    <span>{feature.benefit}</span>
-                  </CardFooter>
                 </Card>
-              </motion.div>
+              </div>
             );
           })}
         </div>

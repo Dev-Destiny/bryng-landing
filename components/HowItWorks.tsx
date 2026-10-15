@@ -1,121 +1,88 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
-import {
-  UserPlus,
-  FileText,
-  SlidersHorizontal,
-  Wallet,
-  Clock,
-  CheckCircle,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-import { Badge, Card, CardTitle, CardDescription } from "./ui";
+import { motion, useReducedMotion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Card, CardTitle, CardDescription } from "./ui";
 
 interface StepItem {
   number: string;
   title: string;
   description: string;
-  icon: typeof UserPlus;
 }
 
 const studentSteps: StepItem[] = [
   {
     number: "01",
-    title: "Create Free Student Account",
-    description:
-      "Register using your academic email in less than 2 minutes. Browse vetted professionals and explore pricing with zero commitment.",
-    icon: UserPlus,
+    title: "Make your account",
+    description: "Sign up for free and browse experts by subject, experience, and price.",
   },
   {
     number: "02",
-    title: "Submit Task Brief & Rubric",
-    description:
-      "Specify your academic degree level, topic, guidelines, formatting standards (APA/Harvard), and chapter deadline milestones.",
-    icon: FileText,
+    title: "Share what you need",
+    description: "Add your topic, goals, guidelines, and the date you need the work.",
   },
   {
     number: "03",
-    title: "Select Your Verified Scholar",
-    description:
-      "Review transparent scholar profiles, subject credentials, verified ratings, and past completion rates before making your selection.",
-    icon: SlidersHorizontal,
+    title: "Choose your expert",
+    description: "Compare verified qualifications, subject experience, reviews, and rates.",
   },
   {
     number: "04",
-    title: "Fund Milestone Escrow",
-    description:
-      "Deposit payment into neutral platform escrow. Your funds are secured and never released to the professional until you approve the draft.",
-    icon: Wallet,
+    title: "Agree on the plan",
+    description: "Set the scope, price, and milestones together before work begins.",
   },
   {
     number: "05",
-    title: "Track Chapter-by-Chapter",
-    description:
-      "Receive progressive drafts section by section. Review supervisor feedback, request revisions, and communicate through secure in-app chat.",
-    icon: Clock,
+    title: "Review as you go",
+    description: "Get work in stages, share feedback, and request changes along the way.",
   },
   {
     number: "06",
-    title: "Sign Off & Release Payment",
-    description:
-      "Review the finalized work and originality report. Only when you confirm 100% satisfaction do you authorize release of escrow funds.",
-    icon: CheckCircle,
+    title: "Approve the work",
+    description: "Release each payment only after you have reviewed and approved that milestone.",
   },
 ];
 
 const professionalSteps: StepItem[] = [
   {
     number: "01",
-    title: "Credential Assessment",
-    description:
-      "Submit your degrees, published research, and academic background to be vetted by Bryng's academic onboarding committee.",
-    icon: UserPlus,
+    title: "Get verified",
+    description: "Share your identity and qualifications for review before taking on projects.",
   },
   {
     number: "02",
-    title: "Review Direct Task Requests",
-    description:
-      "Receive student task briefs strictly matching your verified subjects. Filter by turnaround timeline, scope, and target compensation.",
-    icon: FileText,
+    title: "Find a good-fit project",
+    description: "Review briefs that match your subject areas, schedule, and rates.",
   },
   {
     number: "03",
-    title: "Structure Milestone Schedule",
-    description:
-      "Submit transparent chapter-by-chapter delivery dates and milestone pricing directly through your professional dashboard.",
-    icon: SlidersHorizontal,
+    title: "Set the plan together",
+    description: "Agree on the scope, price, and delivery dates before you begin.",
   },
   {
     number: "04",
-    title: "Guaranteed Escrow Lock",
-    description:
-      "Start writing with complete confidence knowing the student's payment is already locked in platform escrow before work begins.",
-    icon: Wallet,
+    title: "Know payment is set aside",
+    description: "Start once the project is funded and the agreed milestones are in place.",
   },
   {
     number: "05",
-    title: "Deliver Progressive Drafts",
-    description:
-      "Upload formatted chapters as you complete them. Address student or supervisor notes collaboratively in the direct project workspace.",
-    icon: Clock,
+    title: "Share progress",
+    description: "Send work in agreed stages and respond to feedback as the project moves on.",
   },
   {
     number: "06",
-    title: "Receive Instant Wallet Credits",
-    description:
-      "Once approved by the student, funds are deposited immediately into your Bryng wallet for direct withdrawal to your domestic bank.",
-    icon: CheckCircle,
+    title: "Get paid for approved work",
+    description: "Once a milestone is approved, its payment is added to your Bryng wallet.",
   },
 ];
 
 export default function HowItWorks() {
   const [activeTab, setActiveTab] = useState<"students" | "professionals">("students");
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const prefersReducedMotion = useReducedMotion();
 
   const carouselRef = useRef<HTMLDivElement>(null);
   const steps = activeTab === "students" ? studentSteps : professionalSteps;
@@ -125,11 +92,48 @@ export default function HowItWorks() {
     const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
     setCanScrollLeft(scrollLeft > 10);
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-    const maxScroll = scrollWidth - clientWidth;
-    if (maxScroll > 0) {
-      setScrollProgress(Math.min(100, Math.max(0, (scrollLeft / maxScroll) * 100)));
-    }
+
+    const viewportLeft = carouselRef.current.getBoundingClientRect().left;
+    const cards = Array.from(carouselRef.current.children) as HTMLElement[];
+    const nearestCardIndex = cards.reduce(
+      (nearestIndex, card, index) => {
+        const nearestCard = cards[nearestIndex];
+        const distance = Math.abs(card.getBoundingClientRect().left - viewportLeft);
+        const nearestDistance = Math.abs(nearestCard.getBoundingClientRect().left - viewportLeft);
+        return distance < nearestDistance ? index : nearestIndex;
+      },
+      0
+    );
+    setActiveStepIndex(nearestCardIndex);
   }, []);
+
+  useEffect(() => {
+    const syncTabFromHash = () => {
+      if (window.location.hash === "#for-students") {
+        setActiveTab("students");
+        carouselRef.current?.scrollTo({ left: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+      }
+      if (window.location.hash === "#for-professionals") {
+        setActiveTab("professionals");
+        carouselRef.current?.scrollTo({ left: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+      }
+    };
+
+    const syncTabFromNavigation = (event: Event) => {
+      const audience = (event as CustomEvent<"students" | "professionals">).detail;
+      if (audience !== "students" && audience !== "professionals") return;
+      setActiveTab(audience);
+      carouselRef.current?.scrollTo({ left: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+    };
+
+    syncTabFromHash();
+    window.addEventListener("hashchange", syncTabFromHash);
+    window.addEventListener("bryng:set-audience", syncTabFromNavigation);
+    return () => {
+      window.removeEventListener("hashchange", syncTabFromHash);
+      window.removeEventListener("bryng:set-audience", syncTabFromNavigation);
+    };
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     const el = carouselRef.current;
@@ -141,50 +145,45 @@ export default function HowItWorks() {
 
   const scroll = (direction: "left" | "right") => {
     if (!carouselRef.current) return;
-    const cardWidth = 380;
-    const scrollAmount = direction === "left" ? -cardWidth : cardWidth;
-    carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    const scrollAmount = carouselRef.current.clientWidth * 0.8;
+    const offset = direction === "left" ? -scrollAmount : scrollAmount;
+    carouselRef.current.scrollBy({ left: offset, behavior: prefersReducedMotion ? "auto" : "smooth" });
   };
 
   const handleTabChange = (tab: "students" | "professionals") => {
     setActiveTab(tab);
     if (carouselRef.current) {
-      carouselRef.current.scrollTo({ left: 0, behavior: "smooth" });
+      carouselRef.current.scrollTo({ left: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
     }
   };
 
   return (
     <section
       id="how-it-works"
-      className="py-20 lg:py-28 bg-bg-base border-b border-border-subtle relative overflow-hidden"
+      className="relative scroll-mt-24 overflow-hidden border-b border-border-subtle bg-bg-base py-20 lg:py-28"
     >
+      <span id="for-students" className="absolute top-0 scroll-mt-24" aria-hidden="true" />
+      <span id="for-professionals" className="absolute top-0 scroll-mt-24" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+        <div
           className="flex flex-col items-center text-center max-w-3xl mx-auto mb-12"
         >
-          <Badge variant="kicker" className="mb-4">
-            How Bryng Works
-          </Badge>
-
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary tracking-tight leading-tight mb-4">
-            From sign up to completed project in 6 steps
+            Here&apos;s how the work moves.
           </h2>
 
           <p className="text-text-secondary text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
-            Experience complete transparency with escrow-backed chapters. Scroll through the workflow
-            below to see exactly how your academic work is protected.
+            You and your expert agree on the plan, timing, and payment together, then move through the work one milestone at a time.
           </p>
 
           {/* Segmented Pill Toggle + Nav Bar Controls */}
           <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 pt-2">
             {/* Toggle */}
-            <div className="relative inline-flex items-center bg-bg-subtle border border-border-subtle rounded-pill p-1 gap-1">
+            <div role="group" aria-label="Choose your perspective" className="relative inline-flex items-center bg-bg-muted rounded-pill p-1 gap-1">
               <button
+                type="button"
+                aria-pressed={activeTab === "students"}
                 onClick={() => handleTabChange("students")}
                 className={`relative px-5 py-2.5 rounded-pill text-xs sm:text-sm font-semibold transition-colors z-10 cursor-pointer ${
                   activeTab === "students"
@@ -196,12 +195,14 @@ export default function HowItWorks() {
                   <motion.div
                     layoutId="activeTab"
                     className="absolute inset-0 bg-brand rounded-pill shadow-xs -z-10"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
-                <span>For Students</span>
+                <span>For students</span>
               </button>
               <button
+                type="button"
+                aria-pressed={activeTab === "professionals"}
                 onClick={() => handleTabChange("professionals")}
                 className={`relative px-5 py-2.5 rounded-pill text-xs sm:text-sm font-semibold transition-colors z-10 cursor-pointer ${
                   activeTab === "professionals"
@@ -213,19 +214,19 @@ export default function HowItWorks() {
                   <motion.div
                     layoutId="activeTab"
                     className="absolute inset-0 bg-brand rounded-pill shadow-xs -z-10"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
-                <span>For Professionals</span>
+                <span>For experts</span>
               </button>
             </div>
 
             {/* Carousel Arrow Controls & Step Counter */}
             <div className="flex items-center gap-3">
               <span className="text-xs font-semibold text-text-muted hidden sm:inline-block">
-                Drag or scroll to explore
+                Use arrows or swipe to follow along
               </span>
-              <div className="flex items-center gap-1.5 bg-bg-surface border border-border-subtle rounded-pill p-1 shadow-xs">
+              <div className="flex items-center gap-1.5 bg-bg-surface rounded-pill p-1 shadow-xs">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -258,58 +259,46 @@ export default function HowItWorks() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Carousel Encapsulating Container */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="relative bg-bg-muted/80 border border-border-subtle rounded-2xl sm:rounded-3xl lg:rounded-4xl p-3 sm:p-4 lg:p-6 overflow-hidden"
+        <div
+          className="relative overflow-hidden rounded-carousel-track bg-bg-muted p-wrapper"
         >
           <div
             ref={carouselRef}
-            className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory py-2 px-1 sm:px-2 no-scrollbar"
+            id="workflow-steps"
+            role="region"
+            aria-label={`${activeTab === "students" ? "Student" : "Expert"} project steps`}
+            tabIndex={0}
+            className="flex gap-2 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
             }}
           >
-            {steps.map((step) => {
-              const Icon = step.icon;
+            {steps.map((step, index) => {
               return (
                 <motion.div
                   key={`${activeTab}-${step.number}`}
-                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, x: 14 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: prefersReducedMotion ? 0 : 0.32, delay: prefersReducedMotion ? 0 : index * 0.035 }}
                   whileTap={{ scale: 0.99 }}
-                  className="shrink-0 snap-start"
+                  className={`shrink-0 snap-start basis-[82vw] sm:basis-[36vw] lg:basis-[calc((100%-16px)/4)]`}
                 >
                   <Card
                     variant="default"
-                    className="w-[300px] sm:w-[350px] lg:w-[380px] p-6 sm:p-7 hover:border-brand/40 duration-300 flex flex-col justify-between group cursor-grab active:cursor-grabbing"
+                    className="flex h-80 w-full cursor-grab flex-col rounded-inner-card bg-white p-6 text-text-primary shadow-xs active:cursor-grabbing sm:h-85 sm:p-7 lg:h-90"
                   >
-                    {/* Top: Badges and Step Index */}
-                    <div>
-                      <div className="flex items-center justify-between mb-5">
-                        {/* Step Number Pill */}
-                        <Badge variant="brand">
-                          Step {step.number}
-                        </Badge>
-
-                        {/* Icon */}
-                        <div className="w-10 h-10 rounded-xl bg-brand-subtle text-brand flex items-center justify-center group-hover:scale-105 transition-transform">
-                          <Icon size={20} />
-                        </div>
-                      </div>
-
-                      {/* Step Title */}
-                      <CardTitle className="mb-2.5 group-hover:text-brand transition-colors">
+                    <span className={`text-lg font-medium tracking-tight ${index === activeStepIndex ? "text-brand" : "text-text-muted"}`}>
+                      {step.number}
+                    </span>
+                    <div className="mt-auto max-w-xl">
+                      <CardTitle className="mb-3 text-[26px] font-medium leading-tight tracking-tight text-text-primary sm:text-3xl">
                         {step.title}
                       </CardTitle>
-
-                      {/* Step Description */}
-                      <CardDescription>
+                      <CardDescription className="max-w-md text-base leading-relaxed text-text-secondary opacity-100">
                         {step.description}
                       </CardDescription>
                     </div>
@@ -318,18 +307,28 @@ export default function HowItWorks() {
               );
             })}
           </div>
-        </motion.div>
+        </div>
 
         {/* Carousel Progress Track (Underneath) */}
-        <div className="mt-8 max-w-xs mx-auto flex items-center gap-3">
-          <span className="text-[11px] font-bold text-text-muted">01</span>
-          <div className="flex-1 h-1 bg-border-subtle rounded-pill overflow-hidden">
-            <div
-              className="h-full bg-brand transition-all duration-200 rounded-pill"
-              style={{ width: `${Math.max(16, scrollProgress)}%` }}
+        <div className="mt-8 mx-auto flex max-w-2xl items-center gap-3" aria-label={`Step ${activeStepIndex + 1} of ${steps.length}`}>
+          <span className="shrink-0 text-xs font-semibold text-text-secondary">
+            Step {String(activeStepIndex + 1).padStart(2, "0")}
+          </span>
+          <div
+            className="h-1 flex-1 overflow-hidden rounded-pill bg-border-subtle"
+            role="progressbar"
+            aria-label="Project journey"
+            aria-valuemin={1}
+            aria-valuemax={steps.length}
+            aria-valuenow={activeStepIndex + 1}
+          >
+            <motion.div
+              className="h-full rounded-pill bg-brand"
+              animate={{ width: `${((activeStepIndex + 1) / steps.length) * 100}%` }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.28, ease: "easeOut" }}
             />
           </div>
-          <span className="text-[11px] font-bold text-text-muted">06</span>
+          <span className="shrink-0 text-xs font-semibold text-text-muted">of {String(steps.length).padStart(2, "0")}</span>
         </div>
       </div>
     </section>

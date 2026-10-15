@@ -23,15 +23,15 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const variantStyles: Record<CardVariant, string> = {
   default:
-    "bg-bg-surface text-text-primary border border-border-subtle shadow-xs",
+    "bg-bg-surface text-text-primary shadow-xs",
   subtle:
-    "bg-bg-subtle/80 text-text-primary border border-border-subtle",
+    "bg-bg-subtle/80 text-text-primary",
   dark:
-    "bg-dark-bg text-white border border-dark-border shadow-xl",
+    "bg-dark-bg text-white shadow-xl",
   highlight:
-    "bg-[#FEF9C3] text-text-primary border border-[#FDE047]",
+    "bg-[#FEF9C3] text-text-primary",
   imageBg:
-    "relative text-white border border-white/15 shadow-xl",
+    "relative shadow- xl",
 };
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
@@ -49,7 +49,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     ref
   ) => {
     // const isImageBg = variant === "imageBg" || variant === "image_bg";
-    const baseClasses = "rounded-radius transition-all overflow-hidden relative isolate";
+    const baseClasses = "transition-all overflow-hidden relative isolate";
     const interactiveClasses = interactive
       ? "hover:border-border-strong hover:shadow-md cursor-pointer"
       : "";

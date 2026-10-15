@@ -63,8 +63,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed max-w-xs mb-6">
-              The structured academic service marketplace connecting students with
-              verified professionals through neutral milestone escrow.
+              Bring your brief. Find an expert in your subject. Keep the plan and payment clear from the start.
             </p>
             <a
               href="mailto:hello@bryng.app"
@@ -77,14 +76,19 @@ export default function Footer() {
           {/* Product Links */}
           <div>
             <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
-              Platform
+              Get started
             </p>
             <ul className="space-y-3">
-              {["How it Works", "For Students", "For Professionals", "Pricing", "Escrow Protection"].map(
+              {["How it works", "For students", "For experts", "Pricing", "Escrow protection"].map(
                 (item) => (
                   <li key={item}>
                     <Link
-                      href="#"
+                      href={
+                        item === "How it works" ? "/#how-it-works" :
+                        item === "For students" ? "/#for-students" :
+                        item === "For experts" ? "/#for-professionals" :
+                        item === "Pricing" ? "/#faq" : "/#core-features"
+                      }
                       className="text-sm text-text-secondary hover:text-text-primary transition-colors font-medium"
                     >
                       {item}
@@ -101,32 +105,40 @@ export default function Footer() {
               Company
             </p>
             <ul className="space-y-3">
-              {["About Bryng", "Academic Integrity", "Careers", "Contact Support", "Trust & Safety"].map(
-                (item) => (
-                  <li key={item}>
-                    <Link
-                      href="#"
-                      className="text-sm text-text-secondary hover:text-text-primary transition-colors font-medium"
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                )
-              )}
+              {[
+                { label: "About Bryng", href: "/" },
+                { label: "Blog", href: "/blog" },
+                { label: "Academic integrity", href: "/#core-features" },
+                { label: "Careers", href: "mailto:hello@bryng.app?subject=Careers%20at%20Bryng" },
+                { label: "Contact support", href: "mailto:hello@bryng.app" },
+                { label: "Trust & safety", href: "/#faq" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="text-sm text-text-secondary hover:text-text-primary transition-colors font-medium"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Support Links */}
           <div>
             <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">
-              Governance
+              Help & trust
             </p>
             <ul className="space-y-3">
-              {["Dispute Mediation", "Escrow Rules", "Citation Guidelines", "Security Status"].map(
+              {["Dispute resolution", "Escrow rules", "Citation guidelines", "Security questions"].map(
                 (item) => (
                   <li key={item}>
                     <Link
-                      href="#"
+                      href={
+                        item === "Dispute resolution" ? "/#extra-features" :
+                        item === "Security questions" ? "/#faq" : "/#core-features"
+                      }
                       className="text-sm text-text-secondary hover:text-text-primary transition-colors font-medium"
                     >
                       {item}

@@ -1,8 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
-import { Badge, SectionHeader } from "./ui";
+import { SectionHeader } from "./ui";
 
 type FeatureStatus = boolean | "partial";
 
@@ -15,49 +14,49 @@ interface ComparisonRow {
 
 const comparisonData: ComparisonRow[] = [
   {
-    feature: "Tested & Credentialed Professionals",
+    feature: "Vetted experts with visible qualifications",
     bryng: true,
     whatsapp: false,
     general: "partial",
   },
   {
-    feature: "Secure Milestone Escrow",
+    feature: "Payment held until you approve",
     bryng: true,
     whatsapp: false,
     general: false,
   },
   {
-    feature: "Chapter-by-Chapter Updates",
+    feature: "Work delivered in milestones",
     bryng: true,
     whatsapp: false,
     general: false,
   },
   {
-    feature: "Verified Originality & Referencing",
+    feature: "Originality and reference checks",
     bryng: true,
     whatsapp: false,
     general: false,
   },
   {
-    feature: "Academic Subject Specialization",
+    feature: "Experts matched by subject",
     bryng: true,
     whatsapp: false,
     general: "partial",
   },
   {
-    feature: "Impartial Dispute Mediation",
+    feature: "Help resolving a disagreement",
     bryng: true,
     whatsapp: false,
     general: "partial",
   },
   {
-    feature: "Purpose-Built for Academic Research",
+    feature: "Designed for academic projects",
     bryng: true,
     whatsapp: false,
     general: false,
   },
   {
-    feature: "Escrow Refund Safeguard",
+    feature: "A refund path through escrow",
     bryng: true,
     whatsapp: false,
     general: false,
@@ -76,11 +75,7 @@ function StatusCell({ value }: { value: FeatureStatus }) {
   }
   if (value === "partial") {
     return (
-      <div className="flex justify-center">
-        <Badge variant="neutral">
-          Varies
-        </Badge>
-      </div>
+      <span className="block text-center text-xs font-medium text-text-muted">Depends</span>
     );
   }
   return (
@@ -98,25 +93,20 @@ export default function Comparison() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <SectionHeader
-          kicker="The Bryng Standard"
-          title="Why Bryng Is Different"
-          subtitle="Informal channels leave students exposed to ghosting and incomplete work. Bryng standardizes protection and academic accountability."
+          title="No guessing where things stand."
+          subtitle="Agree on the brief, milestones, and payment plan up front, then keep the details together as the work moves along."
           className="mb-14"
         />
 
         {/* Table Container */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="overflow-x-auto rounded-lg border border-border-subtle bg-bg-surface shadow-xs"
+        <div
+          className="overflow-x-auto rounded-inner-card border border-border-subtle bg-bg-surface shadow-xs"
         >
           <table className="w-full min-w-[600px] border-collapse">
             <thead>
               <tr className="border-b border-border-subtle bg-bg-subtle/50">
                 <th className="text-left px-6 py-4 text-xs font-semibold text-text-secondary uppercase tracking-wider w-[40%]">
-                  Standard Feature
+                  What matters
                 </th>
                 <th className="px-6 py-4 w-[20%] text-center bg-brand-subtle/50 border-x border-brand-border">
                   <span className="text-sm font-bold text-brand">
@@ -125,12 +115,12 @@ export default function Comparison() {
                 </th>
                 <th className="px-6 py-4 w-[20%] text-center">
                   <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    WhatsApp & Telegram
+                    Messaging apps
                   </span>
                 </th>
                 <th className="px-6 py-4 w-[20%] text-center">
                   <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    General Freelance Apps
+                    Other marketplaces
                   </span>
                 </th>
               </tr>
@@ -157,11 +147,11 @@ export default function Comparison() {
               ))}
             </tbody>
           </table>
-        </motion.div>
+        </div>
 
         {/* Footnote */}
         <p className="text-center text-xs text-text-muted mt-5">
-          * &quot;Varies&quot; indicates the feature is unstandardized or depends on informal arrangements.
+          A feature marked &quot;Depends&quot; varies by service and seller.
         </p>
       </div>
     </section>

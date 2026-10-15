@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { Badge } from "./Badge";
 
 export interface SectionHeaderProps {
@@ -28,13 +27,8 @@ export function SectionHeader({
   as: HeadingTag = "h2",
 }: SectionHeaderProps) {
   const isCenter = align === "center";
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+    <div
       className={`flex flex-col ${
         isCenter ? "items-center text-center max-w-3xl mx-auto" : "items-start text-left"
       } ${className}`.trim()}
@@ -58,6 +52,6 @@ export function SectionHeader({
           {subtitle}
         </p>
       )}
-    </motion.div>
+    </div>
   );
 }

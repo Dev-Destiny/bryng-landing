@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -10,28 +11,32 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Bryng — Academic Service Marketplace",
+  metadataBase: new URL(siteUrl),
+  title: "Bryng | Vetted Academic Support, Milestone by Milestone",
   description:
-    "Connect with verified academic professionals. Pay safely through escrow. Only release funds when satisfied. Bryng is the structured marketplace for academic success.",
+    "Find vetted subject experts for structured academic support. Agree on a clear plan, review each milestone, and approve work before payment is released.",
   keywords: [
     "academic help",
-    "verified academic writers",
-    "academic escrow",
+    "academic support",
+    "vetted subject experts",
+    "milestone-based academic support",
     "thesis assistance",
-    "student marketplace",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Bryng — Academic Service Marketplace",
+    title: "Bryng | Vetted Academic Support, Milestone by Milestone",
     description:
-      "Connect with verified professionals. Pay safely through escrow. Only release funds when satisfied.",
+      "Find vetted subject experts, agree on a clear plan, and review each milestone before payment is released.",
     type: "website",
-    url: "https://bryng.app",
+    url: siteUrl,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bryng — Academic Service Marketplace",
+    title: "Bryng | Vetted Academic Support, Milestone by Milestone",
     description:
-      "Connect with verified professionals. Pay safely through escrow.",
+      "Find vetted subject experts, agree on a clear plan, and review each milestone before payment is released.",
   },
   icons: {
     icon: [
