@@ -6,36 +6,14 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Search, Clock, ArrowUpRight } from "lucide-react";
 import { BlogPost } from "@/data/blog-posts";
+import AuthorAvatar from "@/components/blog/AuthorAvatar";
+import { formatBlogDate } from "@/components/blog/utils";
 
 // ─── constants ────────────────────────────────────────────────────────────────
 
 const ALL_CATEGORY = "All";
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
-
-function formatDate(isoDate: string): string {
-  return new Date(isoDate).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
-
-function AuthorAvatar({ small = false }: { small?: boolean }) {
-  return (
-    <span
-      className={`inline-flex shrink-0 overflow-hidden items-center justify-center rounded-full border border-white/80 shadow-sm ${small ? "h-8 w-8" : "h-9 w-9"}`}
-    >
-      <Image
-        src="/Bryng_Icon.svg"
-        alt=""
-        width={64}
-        height={64}
-        className="h-full w-full object-cover"
-      />
-    </span>
-  );
-}
 
 function CategoryBadge({ children }: { children: string }) {
   return (
@@ -92,10 +70,10 @@ function FeaturedCard({ post }: { post: BlogPost }) {
           </p>
 
           <div className="flex items-center gap-3 pt-2">
-            <AuthorAvatar />
+            <AuthorAvatar size="md" />
             <div>
               <p className="text-xs font-semibold text-text-primary leading-none mb-1">
-                {post.author.name} <span className="font-normal text-text-muted">· {formatDate(post.date)}</span>
+                {post.author.name} <span className="font-normal text-text-muted">· {formatBlogDate(post.date, "short")}</span>
               </p>
               <p className="text-[11px] text-text-muted flex items-center gap-1">
                 <Clock size={10} />
@@ -149,12 +127,12 @@ function PostCard({ post }: { post: BlogPost }) {
           {/* Footer row */}
           <div className="flex items-center justify-between pt-1 mt-auto">
             <div className="flex items-center gap-2.5">
-              <AuthorAvatar small />
+              <AuthorAvatar size="sm" />
               <div>
                 <p className="text-xs font-semibold text-text-primary leading-none mb-0.5">
                   {post.author.name}
                 </p>
-                <p className="text-[11px] text-text-muted">{formatDate(post.date)} · {post.readTime} min read</p>
+                <p className="text-[11px] text-text-muted">{formatBlogDate(post.date, "short")} · {post.readTime} min read</p>
               </div>
             </div>
 

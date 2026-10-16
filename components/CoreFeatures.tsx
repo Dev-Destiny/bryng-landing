@@ -64,7 +64,7 @@ function FeatureFlow({ feature, prefersReducedMotion }: { feature: TabData; pref
   const connectorInset = feature.flow.length === 4 ? "left-[12.5%] right-[12.5%]" : "left-[16.67%] right-[16.67%]";
 
   return (
-    <div className="relative flex min-h-[300px] flex-col justify-center overflow-hidden rounded-inner-card bg-[#1B1725] px-6 py-9 text-white sm:min-h-[360px] sm:px-9">
+    <div className="relative flex min-h-75 flex-col justify-center overflow-hidden rounded-inner-card bg-[#1B1725] px-6 py-9 text-white sm:min-h-90 sm:px-9">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={feature.id}

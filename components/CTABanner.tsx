@@ -36,7 +36,7 @@ export default function CTABanner() {
                   href="#how-it-works"
                   variant="ghost"
                   size="lg"
-                  className="w-full sm:w-auto text-white/70 hover:text-white px-6 py-4"
+                  className="w-full sm:w-auto text-white/70 hover:text-primary px-6 py-4"
                 >
                   Walk me through it
                 </Button>

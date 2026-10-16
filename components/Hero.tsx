@@ -35,7 +35,7 @@ export default function Hero() {
   }, [isPlaying]);
 
   return (
-    <section className="relative isolate flex min-h-[100dvh] overflow-hidden bg-[#171121] text-white">
+    <section className="relative isolate flex min-h-dvh overflow-hidden bg-[#171121] text-white">
       {/* Local video keeps the backdrop vivid while the overlays protect text contrast. */}
       <video
         ref={videoRef}
@@ -50,7 +50,7 @@ export default function Hero() {
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(15,10,27,.91)_0%,rgba(22,13,37,.77)_42%,rgba(26,12,37,.34)_100%)]" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(12,8,20,.7)_0%,transparent_38%,rgba(15,10,27,.16)_100%)]" />
-      <div className="pointer-events-none absolute -right-44 top-12 -z-10 h-[34rem] w-[34rem] rounded-full bg-brand/20 blur-[110px]" />
+      <div className="pointer-events-none absolute -right-44 top-12 -z-10 h-136 w-136 rounded-full bg-brand/20 blur-[110px]" />
 
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between px-5 pb-9 pt-32 sm:px-8 sm:pb-11 sm:pt-36 lg:px-8 lg:pt-40">
         <motion.div

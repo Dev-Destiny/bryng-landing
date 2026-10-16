@@ -6,27 +6,8 @@ import { useRef, useState } from "react";
 import { ArrowLeft, Clock, Calendar, ArrowRight } from "lucide-react";
 import { BlogPost } from "@/data/blog-posts";
 import { Button } from "@/components/ui";
-
-// ─── helpers ──────────────────────────────────────────────────────────────────
-
-function formatDate(isoDate: string): string {
-  return new Date(isoDate).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
-
-function AuthorAvatar({ initials }: { initials: string }) {
-  return (
-    <span
-      aria-label={`${initials} author avatar placeholder`}
-      className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/80 bg-brand-subtle text-xs font-semibold text-brand shadow-sm"
-    >
-      {initials}
-    </span>
-  );
-}
+import AuthorAvatar from "@/components/blog/AuthorAvatar";
+import { formatBlogDate } from "@/components/blog/utils";
 
 // ─── animation variants ───────────────────────────────────────────────────────
 
@@ -68,7 +49,7 @@ export default function BlogPostClient({ post }: Props) {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={readingProgress}
-        className="fixed left-0 right-0 top-16 z-40 h-1 bg-brand/10 sm:top-[76px]"
+        className="fixed left-0 right-0 top-16 z-40 h-1 bg-brand/10 sm:top-19"
       >
         <motion.div
           aria-hidden="true"
@@ -104,7 +85,7 @@ export default function BlogPostClient({ post }: Props) {
 
         {/* Author + meta row */}
         <div className="mb-10 flex flex-wrap items-center gap-x-5 gap-y-3 border-b border-border-subtle pb-8">
-          <AuthorAvatar initials={post.author.initials} />
+          <AuthorAvatar size="lg" />
           <div>
             <p className="text-sm font-semibold text-text-primary leading-none mb-0.5">
               {post.author.name}
@@ -115,7 +96,7 @@ export default function BlogPostClient({ post }: Props) {
           <div className="flex items-center gap-4 text-xs text-text-muted ml-auto">
             <span className="flex items-center gap-1.5">
               <Calendar size={12} />
-              {formatDate(post.date)}
+              {formatBlogDate(post.date)}
             </span>
             <span className="flex items-center gap-1.5">
               <Clock size={12} />

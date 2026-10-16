@@ -87,7 +87,7 @@ export default function FAQ() {
                     <motion.div
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`flex-shrink-0 w-7 h-7 rounded-pill flex items-center justify-center transition-colors ${
+                      className={`shrink-0 w-7 h-7 rounded-pill flex items-center justify-center transition-colors ${
                         isOpen
                           ? "bg-brand text-white"
                           : "bg-bg-subtle text-text-secondary"
